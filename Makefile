@@ -24,7 +24,7 @@ run-$(1):
 		$(IMAGE):$(1)-$(VERSION)
 
 push-$(1): params
-	@echo "pushing '$$@'"
+	docker push $(IMAGE):$(1)-$(VERSION)
 endef
 
 $(foreach env,$(TAGS),$(eval $(call gen-env,$(env))))
