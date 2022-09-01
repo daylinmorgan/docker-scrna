@@ -37,14 +37,14 @@ build b: params build-$(TAG)
 .PHONY: run r
 run r: params run-$(TAG)
 
-## push-all | push all the images
-.PHONY: push
-push-all: version-check $(addprefix push-,$(TAGS)) push-readme
+## pa, push-all | push all the images
+.PHONY:pa push
+pa push-all: version-check $(addprefix push-,$(TAGS)) push-readme
 	@echo "done"
 
-## build-all | build all the imaages
-.PHONY: build-all
-build-all: $(addprefix build-,$(TAGS))
+## ba, build-all | build all the imaages
+.PHONY:ba build-all
+ba build-all: $(addprefix build-,$(TAGS))
 
 ## bootstrap | generate local conda environment
 .PHONY: bootstrap
