@@ -50,7 +50,7 @@ build-all: $(addprefix build-,$(TAGS))
 .PHONY: bootstrap
 bootstrap:
 	mamba create --force -p ./env -y \
-		python conda-lock mamba ruamel.yaml
+		python conda-lock mamba ruamel.yaml jinja2
 
 ## l, locks | rebuild all lock files
 .PHONY: locks
@@ -69,9 +69,11 @@ version-check:
 	fi
 
 .PHONY: push-readme
-push-readme:
-	@./scripts/dockerhub-readme.sh > README-containers.md
+push-readme: README-containers.md
 	@docker pushrm $(IMAGE)
+
+%.md: tmpl/%.tmpl.md
+	@./scripts/generate-readme.py $(VERSION) $*.tmpl.md > $@
 
 .PHONY: clean
 clean c:

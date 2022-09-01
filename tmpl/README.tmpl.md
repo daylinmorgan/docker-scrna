@@ -7,13 +7,13 @@ This repo contains the `Dockerfile` and `conda` environment specifications to en
 
 | image | # of packages | use case |
 |---|---|---|
-|full-22.9.1| 702 | start to finish processing of cellranger count matrices, including normalization w/ `scran` and analysis w/ `scanpy` |
-|minimal-22.9.1 | 213 | quick and dirty image for analyzing pre-processed single cell data w/ `scanpy`
+|full-{{version}}| {{pkgs['full']}} | start to finish processing of cellranger count matrices, including normalization w/ `scran` and analysis w/ `scanpy` |
+|minimal-{{version}} | {{pkgs['minimal']}} | quick and dirty image for analyzing pre-processed single cell data w/ `scanpy`
 
 ## Usage
 
 ```bash
-docker run --rm -it -v $PWD:/data daylinmorgan/scrna:full-22.9.1
+docker run --rm -it -v $PWD:/data daylinmorgan/scrna:full-{{version}}
 ```
 
 You can run these images locally using the included recipe `run` or see the included [`docker-compose`](./docker-compose.yml).
@@ -61,7 +61,7 @@ TAG=minimal make build
 # OR
 make build-minimal
 ```
-This will build and image tagged: daylinmorgan/scrna:minimal-22.9.1
+This will build and image tagged: daylinmorgan/scrna:minimal-{{version}}
 
 *NOTE*: aliases work here as well i.e. `make b-minimal`.
 

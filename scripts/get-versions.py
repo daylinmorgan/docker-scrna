@@ -6,7 +6,6 @@ import re
 import sys
 
 from mamba import repoquery
-# from yaml import CLoader, CDumper, load, dump
 from ruamel.yaml import YAML
 
 yaml = YAML()
@@ -65,26 +64,40 @@ def print_versions(deps):
     name_length = max((len(name) for name in deps))
     lengths = (
         max((len(name) for name in deps)),
-        max((len(info['spec']) for info in deps.values())),
-        max((len(info['version']) for info in deps.values())),
+        max((len(info["spec"]) for info in deps.values())),
+        max((len(info["version"]) for info in deps.values())),
     )
 
-    h = "{RED}{3:<{0}}{NC} | {RED}{4:<{1}}{NC} | {RED}{5:<{2}}{NC}".format(*lengths,"name","spec","latest",RED=RED,NC=NC)
+    h = "{RED}{3:<{0}}{NC} | {RED}{4:<{1}}{NC} | {RED}{5:<{2}}{NC}".format(
+        *lengths, "name", "spec", "latest", RED=RED, NC=NC
+    )
     print(h)
-    print("-"*(len(h)-len(RED*3 + NC*3)))
+    print("-" * (len(h) - len(RED * 3 + NC * 3)))
     for name, info in deps.items():
-        s = "{BOLD}{3:<{0}}{NC} | {YELLOW}{4:<{1}}{NC} | {GREEN}{5:<{2}}{NC}".format(*lengths,name,info['spec'],info['version'],BOLD=BOLD,GREEN=GREEN,YELLOW=YELLOW,NC=NC)
+        s = "{BOLD}{3:<{0}}{NC} | {YELLOW}{4:<{1}}{NC} | {GREEN}{5:<{2}}{NC}".format(
+            *lengths,
+            name,
+            info["spec"],
+            info["version"],
+            BOLD=BOLD,
+            GREEN=GREEN,
+            YELLOW=YELLOW,
+            NC=NC,
+        )
         print(s)
 
+
 def clear_stderr():
-    print('\033[K',file=sys.stderr,end='\r')
+    print("\033[K", file=sys.stderr, end="\r")
+
 
 def get_args():
     parser = argparse.ArgumentParser()
-    parser.add_argument("--spec", help="environemnt yml spec",required=True)
-    parser.add_argument("--dump",help="dump the spec as yml",action="store_true")
+    parser.add_argument("--spec", help="environemnt yml spec", required=True)
+    parser.add_argument("--dump", help="dump the spec as yml", action="store_true")
 
     return parser.parse_args()
+
 
 def remove_comments(spec):
     comments = spec.ca.items.copy()
@@ -105,7 +118,7 @@ def main():
     for dep in spec["dependencies"]:
         deps[get_name(dep)] = {"spec": dep}
 
-    print("Generating repoquery pool..",file=sys.stderr,end='\r')
+    print("Generating repoquery pool..", file=sys.stderr, end="\r")
     pool = get_pool(spec["channels"])
     clear_stderr()
 
@@ -116,10 +129,13 @@ def main():
     clear_stderr()
 
     if args.dump:
-        spec["dependencies"] = [f"{pkg}={info['version']}" for pkg, info in deps.items()]
-        yaml.dump(spec,sys.stdout)
+        spec["dependencies"] = [
+            f"{pkg}={info['version']}" for pkg, info in deps.items()
+        ]
+        yaml.dump(spec, sys.stdout)
     else:
         print_versions(deps)
+
 
 if __name__ == "__main__":
     main()
