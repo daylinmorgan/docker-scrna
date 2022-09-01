@@ -76,7 +76,7 @@ These images are designed for reproducible science. A latest tag is not informat
 ## TODO
 
 - [ ] offload build/push to Github Actions
-
+- [ ] make images with `quarto-cli`
 
 <!-- [docker-shield]: https://img.shields.io/docker/v/daylinmorgan/scrna?label=docker -->
 [docker-shield]: https://img.shields.io/badge/Docker-2CA5E0?&logo=docker&logoColor=white
