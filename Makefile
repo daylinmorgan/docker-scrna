@@ -39,7 +39,7 @@ run r: params run-$(TAG)
 
 ## push-all -> push all the images
 .PHONY: push
-push-all: $(addprefix push-,$(TAGS)) push-readme
+push-all: version-check $(addprefix push-,$(TAGS)) push-readme
 	@echo "done"
 
 ## build-all -> build all the imaages
