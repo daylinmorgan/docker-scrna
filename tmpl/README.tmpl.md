@@ -1,3 +1,7 @@
+<!-- DO NOT EDIT BY HAND -->
+<!-- Edit tmpl/README.tmpl.md -->
+<!-- to regenerate: make README.md -->
+
 [![MIT License][license-shield]][license-url]
 [![Docker][docker-shield]][docker-url]
 
