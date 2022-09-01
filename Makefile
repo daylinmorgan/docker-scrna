@@ -29,30 +29,30 @@ endef
 
 $(foreach env,$(TAGS),$(eval $(call gen-env,$(env))))
 
-## b, build -> build image (or build-TAG)
+## b, build | build image (or build-TAG)
 .PHONY: build
 build b: params build-$(TAG)
 
-## r, run -> run the container locally (or: run-TAG)
+## r, run | run the container locally (or: run-TAG)
 .PHONY: run r
 run r: params run-$(TAG)
 
-## push-all -> push all the images
+## push-all | push all the images
 .PHONY: push
 push-all: version-check $(addprefix push-,$(TAGS)) push-readme
 	@echo "done"
 
-## build-all -> build all the imaages
+## build-all | build all the imaages
 .PHONY: build-all
 build-all: $(addprefix build-,$(TAGS))
 
-## bootstrap -> generate local conda environment
+## bootstrap | generate local conda environment
 .PHONY: bootstrap
 bootstrap:
 	mamba create --force -p ./env -y \
 		python conda-lock mamba ruamel.yaml
 
-## l, locks -> rebuild all lock files
+## l, locks | rebuild all lock files
 .PHONY: locks
 locks l: $(foreach tag,$(TAGS), locks/$(tag).lock)
 
@@ -79,13 +79,14 @@ clean c:
 	@rm -f README-containers.md
 
 .DEFAULT_GOAL := help
-## h, help -> show this help
+## h, help | show this help
 .PHONY: help h
-help h: params
-	@awk -v fill=$(shell sed -n 's/^## \(.*\) -> .*/\1/p' Makefile | wc -L)\
-  	'match($$0,/^## (.*) ->/,name) && match($$0,/-> (.*)$$/,help)\
-  	{printf "\033[36m%*s\033[0m -> \033[30m%s\033[0m\n",\
-    fill,name[1],help[1];}' Makefile
+help h: Makefile params
+	@awk -v fill=$(shell sed -n 's/^## \(.*\) | .*/\1/p' $< | wc -L)\
+  	'match($$0,/^## (.*) \|/,name) && match($$0,/\| (.*)$$/,help)\
+  	{printf "\033[36m%*s\033[0m | \033[30m%s\033[0m\n",\
+    fill,name[1],help[1];} match($$0,/^### (.*)/,str) \
+	{printf "%*s   \033[30m%s\033[0m\n",fill," ",str[1];}' $<
 
 .PHONY: params
 params:
