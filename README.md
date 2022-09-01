@@ -4,8 +4,8 @@ This repo contains the `Dockerfile` and `conda` environment specifications to en
 
 | image | # of packages | use case |
 |---|---|---|
-|full-<version>| 702 | start to finish processing of cellranger count matrices, including normalization w/ `scran` and analysis w/ `scanpy` |
-|minimal-<version> | 213 | quick and dirty image for analyzing pre-processed single cell data w/ `scanpy`
+|full-$VERSION | 702 | start to finish processing of cellranger count matrices, including normalization w/ `scran` and analysis w/ `scanpy` |
+|minimal-$VERSION | 213 | quick and dirty image for analyzing pre-processed single cell data w/ `scanpy`
 
 ## Usage
 
