@@ -1,0 +1,39 @@
+channels:
+  - conda-forge
+  - bioconda
+  - r
+  - defaults
+dependencies:
+  # R packages
+  - r-essentials=4.1
+  - r-devtools=2.4.4
+  - r-biocmanager=1.30.18
+  - bioconductor-scran=1.22.0
+  - bioconductor-rhdf5=2.38.0
+  # Python Packages
+  - python=3.9.10
+  - pip=22.2.2
+  - jupyter=1.0.0
+  - jupytext=1.14.0
+  - pandas=1.4.4
+  - numpy=1.23.2
+  - scikit-learn=1.1.2
+  - seaborn=0.11.2
+  - matplotlib=3.5.3
+  - altair=4.2.0
+  - altair_saver=0.5.0
+  - scanpy=1.9.1
+  - anndata2ri=1.1
+  - leidenalg=0.8.10
+  - gseapy=0.12.1
+  - ruamel.yaml=0.17.21
+  # Build/Formatting
+  - black=22.6.0
+  - flake8=5.0.4
+  - isort=5.10.1
+  - snakemake=7.14.0
+  - snakefmt=0.6.1
+  # Node for saving Altair Charts
+  - nodejs=18.8.0
+  - vega-cli=5.17.0
+  - vega-lite-cli=4.17.0

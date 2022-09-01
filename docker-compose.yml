@@ -1,0 +1,7 @@
+services:
+  dev:
+    image: daylinmorgan/scrna:full-16202dd-dev
+    ports:
+      - "8888:8888"
+    volumes:
+      - .:/data
