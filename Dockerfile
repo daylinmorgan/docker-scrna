@@ -1,7 +1,7 @@
-FROM mambaorg/micromamba:0.25.1-bullseye-slim
+FROM mambaorg/micromamba:git-476701e-bullseye-slim
 
 COPY prompt.sh /tmp/prompt.sh
-RUN cat /tmp/prompt.sh >> $HOME/.bashrc
+RUN cat /tmp/prompt.sh >> /home/mambauser/.bashrc
 
 ARG LOCKFILE
 COPY $LOCKFILE tmp/prod.lock
