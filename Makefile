@@ -3,8 +3,6 @@ IMAGE := daylinmorgan/scrna
 TAGS := minimal full
 TAG ?= full
 
-PRECONDA = source $$($$CONDA_EXE info --base)/etc/profile.d/conda.sh ; conda activate ;
-
 SHAREDRULES = build run push b r p
 
 
@@ -50,7 +48,7 @@ ba build-all: $(addprefix build-,$(TAGS))
 ## bootstrap | generate local conda environment
 .PHONY: bootstrap
 bootstrap:
-	$(PRECONDA) mamba create --force -p ./env -y \
+	mamba create --force -p ./env -y \
 		python conda-lock mamba ruamel.yaml jinja2
 
 ## l, locks | rebuild all lock files
