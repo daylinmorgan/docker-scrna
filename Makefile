@@ -3,7 +3,10 @@ IMAGE := daylinmorgan/scrna
 TAGS := minimal full
 TAG ?= full
 
+PRECONDA = source $$($$CONDA_EXE info --base)/etc/profile.d/conda.sh ; conda activate ;
+
 SHAREDRULES = build run push b r p
+
 
 define gen-env
 .PHONY: $(addsuffix -$(1), $(SHAREDRULES))
@@ -47,8 +50,7 @@ ba build-all: $(addprefix build-,$(TAGS))
 ## bootstrap | generate local conda environment
 .PHONY: bootstrap
 bootstrap:
-	@echo "run this cmd to get started:\n" \
-		mamba create --force -p ./env -y \
+	$(PRECONDA) mamba create --force -p ./env -y \
 		python conda-lock mamba ruamel.yaml jinja2
 
 ## l, locks | rebuild all lock files
