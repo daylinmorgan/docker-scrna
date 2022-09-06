@@ -169,3 +169,5 @@ cython_debug/
 README-containers.md
 *.svg
 *.png
+
+.task.mk

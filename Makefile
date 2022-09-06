@@ -3,7 +3,6 @@ IMAGE := daylinmorgan/scrna
 TAGS := minimal full
 TAG ?= full
 
-
 SHAREDRULES = build run push b r p
 
 define gen-env
@@ -48,7 +47,8 @@ ba build-all: $(addprefix build-,$(TAGS))
 ## bootstrap | generate local conda environment
 .PHONY: bootstrap
 bootstrap:
-	mamba create --force -p ./env -y \
+	@echo "run this cmd to get started:\n" \
+		mamba create --force -p ./env -y \
 		python conda-lock mamba ruamel.yaml jinja2
 
 ## l, locks | rebuild all lock files
@@ -80,18 +80,10 @@ clean c:
 	@rm -f README-containers.md
 
 .DEFAULT_GOAL := help
-## h, help | show this help
-.PHONY: help h
-help h: Makefile params
-	@awk -v fill=$(shell sed -n 's/^## \(.*\) | .*/\1/p' $< | wc -L)\
-		'match($$0,/^## (.*) \|/,name) && match($$0,/\| (.*)$$/,help)\
-		{printf "\033[1;93m%*s\033[0m | \033[30m%s\033[0m\n",\
-		fill,name[1],help[1];} match($$0,/^### (.*)/,str) \
-		{printf "%*s   \033[30m%s\033[0m\n",fill," ",str[1];}' $<
+PRINT_VARS = IMAGE VERSION TAG
 
-.PHONY: params
-params:
-	@printf "\033[35mCurrent Params\033[0m:\n\n"
-	@printf "  IMAGE: %s\n" $(IMAGE)
-	@printf "  VERSION: %s\n" $(VERSION)
-	@printf "  TAG: %s | choices: %s\n\n" $(TAG) "$(TAGS)"
+-include .task.mk
+$(if $(wildcard .task.mk),,.task.mk: ; curl -fsSL https://raw.githubusercontent.com/daylinmorgan/task.mk/v22.9.5/task.mk -o .task.mk)
+
+h help: vars
+
