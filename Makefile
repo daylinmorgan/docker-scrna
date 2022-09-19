@@ -22,7 +22,7 @@ run-$(1):
 		-p 8888:8888 \
 		$(IMAGE):$(1)-$(VERSION)
 
-push-$(1): params
+push-$(1): vars
 	docker push $(IMAGE):$(1)-$(VERSION)
 endef
 
@@ -30,11 +30,11 @@ $(foreach env,$(TAGS),$(eval $(call gen-env,$(env))))
 
 ## b, build | build image (or build-TAG)
 .PHONY: build
-build b: params build-$(TAG)
+build b: vars build-$(TAG)
 
 ## r, run | run the container locally (or: run-TAG)
 .PHONY: run r
-run r: params run-$(TAG)
+run r: vars run-$(TAG)
 
 ## pa, push-all | push all the images
 .PHONY:pa push
@@ -83,7 +83,6 @@ clean c:
 PRINT_VARS = IMAGE VERSION TAG
 
 -include .task.mk
-$(if $(wildcard .task.mk),,.task.mk: ; curl -fsSL https://raw.githubusercontent.com/daylinmorgan/task.mk/v22.9.5/task.mk -o .task.mk)
+$(if $(wildcard .task.mk),,.task.mk: ; curl -fsSL https://raw.githubusercontent.com/daylinmorgan/task.mk/v22.9.19/task.mk -o .task.mk)
 
 h help: vars
-
