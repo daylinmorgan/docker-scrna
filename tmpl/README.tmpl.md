@@ -14,6 +14,8 @@ This repo contains the `Dockerfile` and `conda` environment specifications to en
 |full-{{version}}| {{pkgs['full']}} | start to finish processing of cellranger count matrices, including normalization w/ `scran` and analysis w/ `scanpy` |
 |minimal-{{version}} | {{pkgs['minimal']}} | quick and dirty image for analyzing pre-processed single cell data w/ `scanpy`
 
+Both images also contain the [`quarto-cli`](https://github.com/quarto-dev/quarto-cli).
+
 ## Usage
 
 ```bash
