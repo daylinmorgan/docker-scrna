@@ -16,19 +16,19 @@ dependencies:
   - jupyter=1.0.0
   - jupytext=1.14.0
   - pandas=1.4.4
-  - numpy=1.23.2
+  - numpy=1.23.3
   - scikit-learn=1.1.2
-  - seaborn=0.11.2
-  - matplotlib=3.5.3
+  - seaborn=0.12.0
+  - matplotlib=3.6.0
   - altair=4.2.0
   - altair_saver=0.5.0
   - scanpy=1.9.1
   - anndata2ri=1.1
   - leidenalg=0.8.10
-  - gseapy=0.12.1
+  - gseapy=0.13.0
   - ruamel.yaml=0.17.21
   # Build/Formatting
-  - black=22.6.0
+  - black=22.8.0
   - flake8=5.0.4
   - isort=5.10.1
   - snakemake=7.14.0
