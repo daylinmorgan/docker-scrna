@@ -5,7 +5,6 @@ TAG ?= full
 
 SHAREDRULES = build run push b r p
 
-
 define gen-env
 .PHONY: $(addsuffix -$(1), $(SHAREDRULES))
 # add aliases
@@ -39,7 +38,7 @@ pa push-all: version-check $(addprefix push-,$(TAGS)) push-readme
 ba build-all: $(addprefix build-,$(TAGS)) ## build all the imaages
 
 bootstrap: ## generate local conda environment
-	mamba create --force -p ./env -y \
+	micromamba create -p ./env -y \
 		python conda-lock mamba ruamel.yaml jinja2
 
 ## l, locks |> rebuild all lock files
