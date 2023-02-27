@@ -28,31 +28,21 @@ endef
 
 $(foreach env,$(TAGS),$(eval $(call gen-env,$(env))))
 
-## b, build | build image (or build-TAG)
-.PHONY: build
-build b: vars build-$(TAG)
+build b: vars build-$(TAG) ## build image (or build-TAG)
 
-## r, run | run the container locally (or: run-TAG)
-.PHONY: run r
-run r: vars run-$(TAG)
+run r: vars run-$(TAG) ## run the container locally (or: run-TAG)
 
-## pa, push-all | push all the images
-.PHONY:pa push
+## pa, push-all |> push all the images
 pa push-all: version-check $(addprefix push-,$(TAGS)) push-readme
 	@echo "done"
 
-## ba, build-all | build all the imaages
-.PHONY:ba build-all
-ba build-all: $(addprefix build-,$(TAGS))
+ba build-all: $(addprefix build-,$(TAGS)) ## build all the imaages
 
-## bootstrap | generate local conda environment
-.PHONY: bootstrap
-bootstrap:
+bootstrap: ## generate local conda environment
 	mamba create --force -p ./env -y \
 		python conda-lock mamba ruamel.yaml jinja2
 
-## l, locks | rebuild all lock files
-.PHONY: locks
+## l, locks |> rebuild all lock files
 locks l: $(foreach tag,$(TAGS), locks/$(tag).lock)
 
 locks/%.lock: specs/%.yml
@@ -80,9 +70,4 @@ clean c:
 	@rm -f README-containers.md
 
 .DEFAULT_GOAL := help
-PRINT_VARS = IMAGE VERSION TAG
-
--include .task.mk
-$(if $(wildcard .task.mk),,.task.mk: ; curl -fsSL https://raw.githubusercontent.com/daylinmorgan/task.mk/v22.9.19/task.mk -o .task.mk)
-
-h help: vars
+include .task.cfg.mk
